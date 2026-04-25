@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %} - {{ post.title }}{% endblock %}
+
+{% block content %}
+<article class="post">
+    <header class="post-header">
+        <h1>{{ post.title }}</h1>
+        <div class="post-meta">
+            <time datetime="{{ post.date.strftime('%Y-%m-%d') }}">
+                发布时间：{{ post.date.strftime('%Y年%m月%d日') }}
+            </time>
+            {% if post.updated %}
+            <span class="updated">（更新于：{{ post.updated.strftime('%Y年%m月%d日') }}）</span>
+            {% endif %}
+        </div>
+        <div class="post-topics">
+            {% for topic in post.topics %}
+            <a href="/topics/{{ topic|slugify }}.html" class="topic-badge">{{ topic }}</a>
+            {% endfor %}
+        </div>
+        {% if post.series %}
+        <div class="post-series">
+            本文属于系列：《<a href="/series/{{ post.series|slugify }}.html">{{ post.series }}</a>》
+        </div>
+        {% endif %}
+    </header>
+    
+    <div class="post-content">
+        {{ post.html_content|safe }}
+    </div>
+    
+    <footer class="post-footer">
+        <hr>
+        <p class="post-nav">
+            <a href="/writing.html">← 返回所有文章</a>
+        </p>
+    </footer>
+</article>
+{% endblock %}
