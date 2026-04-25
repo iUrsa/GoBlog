@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %} - 笔记{% endblock %}
+
+{% block content %}
+<section class="section">
+    <h1>我的笔记</h1>
+    <div class="notes-list">
+        {% for note in notes %}
+        <article class="note-item">
+            <h2><a href="/notes/{{ note.slug }}.html">{{ note.title }}</a></h2>
+            <div class="note-meta">
+                <time datetime="{{ note.date.strftime('%Y-%m-%d') }}">{{ note.date.strftime('%Y年%m月%d日') }}</time>
+                {% for topic in note.topics %}
+                <a href="/topics/{{ topic|slugify }}.html" class="topic-badge">{{ topic }}</a>
+                {% endfor %}
+            </div>
+            <div class="note-excerpt">
+                {{ note.html_content|truncate(200)|safe }}
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
