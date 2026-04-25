@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %} - 所有文章{% endblock %}
+
+{% block content %}
+<section class="section">
+    <h1>所有文章</h1>
+    <ul class="post-list">
+        {% for post in posts %}
+        <li>
+            <a href="/writing/{{ post.date.strftime('%Y/%m') }}/{{ post.slug }}.html" class="post-title">{{ post.title }}</a>
+            <div class="post-meta">
+                {% for topic in post.topics %}
+                <a href="/topics/{{ topic|slugify }}.html" class="topic-badge">{{ topic }}</a>
+                {% endfor %}
+                <time datetime="{{ post.date.strftime('%Y-%m-%d') }}">{{ post.date.strftime('%Y年%m月%d日') }}</time>
+            </div>
+            {% if post.description %}
+            <p class="post-excerpt">{{ post.description }}</p>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}
