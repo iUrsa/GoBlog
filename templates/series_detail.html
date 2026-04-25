@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %} - {{ series.name }}{% endblock %}
+
+{% block content %}
+<section class="section">
+    <h1>{{ series.name }}</h1>
+    <p class="series-description">本系列共 {{ posts|length }} 篇文章</p>
+    
+    <ol class="series-list-detailed">
+        {% for post in posts %}
+        <li>
+            <a href="/writing/{{ post.date.strftime('%Y/%m') }}/{{ post.slug }}.html" class="post-title">{{ post.title }}</a>
+            <div class="post-meta">
+                <time datetime="{{ post.date.strftime('%Y-%m-%d') }}">{{ post.date.strftime('%Y年%m月%d日') }}</time>
+            </div>
+            {% if post.description %}
+            <p class="post-excerpt">{{ post.description }}</p>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ol>
+</section>
+{% endblock %}
