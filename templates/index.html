@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %} - 首页{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <p class="hero-text">
+        {{ config.description }}
+    </p>
+</section>
+
+<section class="section">
+    <h2>热门分类</h2>
+    <ul class="topic-list">
+        {% for topic in topics %}
+        <li>
+            <a href="/topics/{{ topic.slug }}.html" class="topic-link">{{ topic.name }}</a>
+            <span class="post-count">（{{ topic.count }} 篇）</span>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="/topics.html" class="more-link">所有分类 →</a>
+</section>
+
+<section class="section">
+    <h2>最新文章</h2>
+    <ul class="post-list">
+        {% for post in recent_posts %}
+        <li>
+            <a href="/writing/{{ post.date.strftime('%Y/%m') }}/{{ post.slug }}.html" class="post-title">{{ post.title }}</a>
+            <div class="post-meta">
+                {% for topic in post.topics %}
+                <a href="/topics/{{ topic|slugify }}.html" class="topic-badge">{{ topic }}</a>
+                {% endfor %}
+                <time datetime="{{ post.date.strftime('%Y-%m-%d') }}">{{ post.date.strftime('%Y年%m月%d日') }}</time>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="/writing.html" class="more-link">所有文章 →</a>
+</section>
+
+<section class="section">
+    <h2>最新系列</h2>
+    <ul class="series-list">
+        {% for series_item in series %}
+        <li>
+            <a href="/series/{{ series_item.slug }}.html" class="series-title">{{ series_item.name }}</a>
+            <span class="post-count">（{{ series_item.count }} 篇）</span>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="/series.html" class="more-link">所有系列 →</a>
+</section>
+{% endblock %}
