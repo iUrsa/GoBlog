@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %} - {{ topic.name }}{% endblock %}
+
+{% block content %}
+<section class="section">
+    <h1>分类：{{ topic.name }}</h1>
+    <p class="topic-description">共 {{ posts|length }} 篇文章</p>
+    
+    <ul class="post-list">
+        {% for post in posts %}
+        <li>
+            <a href="/writing/{{ post.date.strftime('%Y/%m') }}/{{ post.slug }}.html" class="post-title">{{ post.title }}</a>
+            <div class="post-meta">
+                <time datetime="{{ post.date.strftime('%Y-%m-%d') }}">{{ post.date.strftime('%Y年%m月%d日') }}</time>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}
