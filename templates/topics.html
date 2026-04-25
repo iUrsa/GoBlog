@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %} - 文章分类{% endblock %}
+
+{% block content %}
+<section class="section">
+    <h1>文章分类</h1>
+    <div class="topics-grid">
+        {% for topic in topics %}
+        <div class="topic-card">
+            <a href="/topics/{{ topic.slug }}.html" class="topic-link-large">{{ topic.name }}</a>
+            <span class="post-count">{{ topic.count }} 篇文章</span>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
