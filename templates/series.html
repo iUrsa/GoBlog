@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %} - 系列文章{% endblock %}
+
+{% block content %}
+<section class="section">
+    <h1>系列文章</h1>
+    <div class="series-grid">
+        {% for series_item in series %}
+        <div class="series-card">
+            <h2><a href="/series/{{ series_item.slug }}.html">{{ series_item.name }}</a></h2>
+            <p class="series-count">{{ series_item.count }} 篇文章</p>
+            <ul class="series-preview">
+                {% for post in series_item.posts[:3] %}
+                <li><a href="/writing/{{ post.date.strftime('%Y/%m') }}/{{ post.slug }}.html">{{ post.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
